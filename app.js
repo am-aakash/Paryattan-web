@@ -1,7 +1,25 @@
 const express = require('express');
 app = express();
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const campground = require('./models/campground');
+
+//connecting with mongoose
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/paryatan', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, "connection error"));
+db.once('open', () => {
+    console.log("Database connected")
+})
+
+//using body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -23,14 +41,27 @@ app.use(cors({
     }
 }));
 
+//setting view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+
 //Api Routes
 
 
 // home route
-app.use('/', (req, res) => {
-    res.status(200).json({
-        message: "Paryattan APIs working."
+app.get('/', (req, res) => {
+    res.render('home');
+})
+
+//campground route
+app.get('/makecampground', async(req, res) => {
+    const camp = new campground({
+        title: 'My backyard',
+        description: "cheap "
     })
+    await camp.save();
+    res.send(camp);
 })
 
 // Server
