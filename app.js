@@ -29,7 +29,7 @@ app.use(cors({
 // home route
 app.use('/', (req, res) => {
     res.status(200).json({
-        message: "Paryattan APIs working"
+        message: "Paryattan APIs working."
     })
 })
 
