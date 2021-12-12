@@ -5,7 +5,7 @@ const cors = require('cors');
 
 //db sequelize
 const db = require('./models/index')
-const Campground = require('./models/campground.model')
+const Location = require('./models/location.model')
 
 
 //using body-parser
@@ -45,14 +45,22 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
-//campground route
-app.get('/makecampground', async(req, res) => {
-    const camp = new Campground({
-        title: 'My backyard',
-        description: "cheap "
+
+//locations route
+app.get('/location', async(req, res) => {
+    const loc = await Location.find();
+    res.render('locations/index', { loc })
+        // res.send(loc)
+})
+
+app.post('/location', async(req, res) => {
+    const loc = new Location({
+        title: req.body.title,
+        price: req.body.price,
+        description: req.body.description,
     })
-    await camp.save();
-    res.send(camp);
+    await loc.save()
+    res.send(loc)
 })
 
 // Server

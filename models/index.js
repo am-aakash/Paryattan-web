@@ -14,6 +14,6 @@ db.once('open', () => {
 })
 
 
-db.campground = require('../models/campground.model');
+db.location = require('./location.model');
 
 module.exports = db
