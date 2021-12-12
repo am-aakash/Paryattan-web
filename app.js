@@ -3,21 +3,11 @@ app = express();
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const campground = require('./models/campground');
 
-//connecting with mongoose
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/paryatan', {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
-});
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, "connection error"));
-db.once('open', () => {
-    console.log("Database connected")
-})
+//db sequelize
+const db = require('./models/index')
+
 
 //using body-parser
 app.use(bodyParser.json());
