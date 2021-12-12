@@ -4,8 +4,9 @@ const path = require('path');
 const cors = require('cors');
 
 //db sequelize
-const db = require('./models')
-const campground = require('./models/campground.model')
+const db = require('./models/index')
+const Campground = require('./models/campground.model')
+
 
 //using body-parser
 const bodyParser = require('body-parser');
@@ -46,7 +47,7 @@ app.get('/', (req, res) => {
 
 //campground route
 app.get('/makecampground', async(req, res) => {
-    const camp = new campground({
+    const camp = new Campground({
         title: 'My backyard',
         description: "cheap "
     })
