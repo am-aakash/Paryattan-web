@@ -2,14 +2,13 @@ const express = require('express');
 app = express();
 const path = require('path');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-
 
 //db sequelize
-const db = require('./models/index')
-
+const db = require('./models')
+const campground = require('./models/campground.model')
 
 //using body-parser
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -30,6 +29,7 @@ app.use(cors({
         return callback(null, true);
     }
 }));
+
 
 //setting view engine
 app.set('view engine', 'ejs');
