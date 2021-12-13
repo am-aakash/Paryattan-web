@@ -1,6 +1,14 @@
 const express = require('express');
 app = express();
+const path = require('path');
 const cors = require('cors');
+
+//db sequelize
+const db = require('./models/index')
+const Location = require('./models/location.model')
+
+
+//using body-parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -23,14 +31,36 @@ app.use(cors({
     }
 }));
 
+
+//setting view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+
 //Api Routes
 
 
 // home route
-app.use('/', (req, res) => {
-    res.status(200).json({
-        message: "Paryattan APIs working"
+app.get('/', (req, res) => {
+    res.render('home');
+})
+
+
+//locations route
+app.get('/location', async(req, res) => {
+    const loc = await Location.find();
+    res.render('locations/index', { loc })
+        // res.send(loc)
+})
+
+app.post('/location', async(req, res) => {
+    const loc = new Location({
+        title: req.body.title,
+        price: req.body.price,
+        description: req.body.description,
     })
+    await loc.save()
+    res.send(loc)
 })
 
 // Server
