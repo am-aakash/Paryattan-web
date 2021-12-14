@@ -13,7 +13,9 @@
     <ul>
         <% for (let x of loc){%>
             <li>
-                <%= x.title %>
+                <a href="/locationone/<%= x.id %>">
+                    <%= x.title %>
+                </a>
             </li>
             <% } %>
     </ul>

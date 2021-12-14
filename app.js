@@ -50,18 +50,21 @@ app.get('/', (req, res) => {
 app.get('/location', async(req, res) => {
     const loc = await Location.find();
     res.render('locations/index', { loc })
-        // res.send(loc)
 })
 
-app.post('/location', async(req, res) => {
-    const loc = new Location({
-        title: req.body.title,
-        price: req.body.price,
-        description: req.body.description,
-    })
-    await loc.save()
-    res.send(loc)
+
+app.get('/location/new', async(req, res) => {
+    res.render('locations/new');
 })
+
+
+
+app.get('/locationone/:id', async(req, res) => {
+    const loc = await Location.findById(req.params.id);
+    res.render('locations/show', { loc });
+})
+
+
 
 // Server
 const port = process.env.PORT || 3000;
