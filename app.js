@@ -10,7 +10,9 @@ const Location = require('./models/location.model')
 
 //using body-parser
 const bodyParser = require('body-parser');
-const { resolveAny } = require('dns');
+const {
+    resolveAny
+} = require('dns');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -33,51 +35,21 @@ app.use(cors({
 }));
 
 
-//setting view engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+// //setting view engine
+// app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
 
 
 //Api Routes
 
+//Location routes
+const location_routes = require("./routes/location.routes");
+app.use('/location', location_routes)
 
 
 //get  home route
 app.get('/', (req, res) => {
-    res.render('home');
-})
-
-//get list of all the locations
-app.get('/location', async(req, res) => {
-    const loc = await Location.find();
-    res.render('locations/index', { loc })
-})
-
-//get form to add new location
-app.get('/location/new', async(req, res) => {
-    res.render('locations/new');
-})
-
-//post location
-app.post('/location', async(req, res) => {
-    const loc = new Location();
-    loc.title = req.body.title;
-    loc.location = req.body.location;
-    await loc.save();
-    res.redirect(`locationone/${loc.id}`)
-
-})
-
-//get single user by id
-app.get('/locationone/:id', async(req, res) => {
-    const loc = await Location.findById(req.params.id);
-    res.render('locations/show', { loc });
-})
-
-//edit
-app.get('/location/:id/edit', async(req, res) => {
-    const loc = await Location.findById(req.params.id);
-    res.render('locations/edit', { loc });
+    res.status(200).render('home');
 })
 
 // Server

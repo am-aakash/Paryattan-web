@@ -10,11 +10,11 @@
 
 <body>
     <h1>All paryattan places</h1>
-    <div><a href="/location/new">Add campground</a></div>
+    <div><a href="/location/new-location-form">Add campground</a></div>
     <ul>
         <% for (let x of loc){%>
             <li>
-                <a href="/location/<%= x.id %>">
+                <a href="/location/location-by-id/<%= x.id %>">//
                     <%= x.title %>
                 </a>
             </li>
