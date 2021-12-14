@@ -35,9 +35,9 @@ app.use(cors({
 }));
 
 
-// //setting view engine
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
+//setting view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 
 //Api Routes
@@ -48,9 +48,9 @@ app.use('/location', location_routes)
 
 
 //get  home route
-app.get('/', (req, res) => {
-    res.status(200).render('home');
-})
+// app.get('/', (req, res) => {
+//     res.status(200).render('home');
+// })
 
 // Server
 const port = process.env.PORT || 3000;

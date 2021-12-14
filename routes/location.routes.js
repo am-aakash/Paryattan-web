@@ -12,7 +12,7 @@ router.get('/new-location-form', controller.NewLocationForm);
 router.post('/post-location', controller.PostLocation);
 
 //get single location by id
-router.post('/location-by-id', controller.LocationById);
+router.get('/location-by-id/:id', controller.LocationById);
 
 //edit location
 // router.post('/edit-location', controller.);

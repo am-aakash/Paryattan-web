@@ -14,22 +14,22 @@ app.use(bodyParser.urlencoded({
 
 //setting view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 
 exports.GetAllLocations = async(req, res) => {
     const loc = await Location.find();
 
     if (loc) {
-        // res.render('locations/index', {
-        //     loc
-        // })
-        return response.responseHelper(
-            res,
-            true, {
-                loc,
-            },
-            "Successfully fetched all locations"
-        );
+        res.render('locations/index', {
+                loc
+            })
+            // return response.responseHelper(
+            //     res,
+            //     true, {
+            //         loc,
+            //     },
+            //     "Successfully fetched all locations"
+            // );
     } else {
         return response.responseHelper(
             res,
@@ -51,13 +51,13 @@ exports.PostLocation = async(req, res) => {
 
     if (loc) {
         res.redirect(`location/location-by-id/${loc.id}`)
-        return response.responseHelper(
-            res,
-            true, {
-                loc,
-            },
-            "Successfully posted new locations"
-        );
+            // return response.responseHelper(
+            //     res,
+            //     true, {
+            //         loc,
+            //     },
+            //     "Successfully posted new locations"
+            // );
     } else {
         return response.responseHelper(
             res,
@@ -69,23 +69,19 @@ exports.PostLocation = async(req, res) => {
 }
 
 exports.LocationById = async(req, res) => {
-    const loc = await Location.findById(req.body.id);
-    //res.send(loc);
+    const loc = await Location.findById(req.params.id);
     if (loc) {
-        // res.render('locations/show', {
-        //     loc
-        // });
-        return response.responseHelper(
-            res,
-            true, {
-                loc,
-            },
-            "Successfully fetched location"
-        );
+        return res.render('locations/show', {
+            loc
+        });
+        // return response.responseHelper(
+        //     res,
+        //     true, {
+        //         loc,
+        //     },
+        //     "Successfully fetched location"
+        // );
     } else {
-        // res.render('locations/show', {
-        //     loc
-        // });
         return response.responseHelper(
             res,
             true, [],
