@@ -41,32 +41,34 @@ app.set('views', path.join(__dirname, 'views'));
 //Api Routes
 
 
-// home route
+//get  home route
 app.get('/', (req, res) => {
     res.render('home');
 })
 
 
-//locations route
+//get list of all the locations
 app.get('/location', async(req, res) => {
     const loc = await Location.find();
     res.render('locations/index', { loc })
 })
 
-
+//get form to add new location
 app.get('/location/new', async(req, res) => {
     res.render('locations/new');
 })
 
+//post location
 app.post('/location', async(req, res) => {
     const loc = new Location();
     loc.title = req.body.title;
     loc.location = req.body.location;
-    loc.save();
+    await loc.save();
     res.redirect(`locationone/${loc.id}`)
 
 })
 
+//get single user by id
 app.get('/locationone/:id', async(req, res) => {
     const loc = await Location.findById(req.params.id);
     res.render('locations/show', { loc });
