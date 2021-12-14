@@ -5,12 +5,18 @@ const db = require('../models/index'); //db sequelize
 const Location = require('../models/location.model');
 const response = require("../helpers/response.helper");
 
+//using body-parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 //setting view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-exports.GetAllLocations = async (req, res) => {
+exports.GetAllLocations = async(req, res) => {
     const loc = await Location.find();
 
     if (loc) {
@@ -27,25 +33,24 @@ exports.GetAllLocations = async (req, res) => {
     } else {
         return response.responseHelper(
             res,
-            true,
-            [],
+            true, [],
             "No locations to show"
         );
     }
 }
 
-exports.NewLocationForm = async (req, res) => {
+exports.NewLocationForm = async(req, res) => {
     res.render('locations/new');
 }
 
-exports.PostLocation = async (req, res) => {
+exports.PostLocation = async(req, res) => {
     const loc = new Location();
     loc.title = req.body.title;
     loc.location = req.body.location;
     await loc.save();
 
     if (loc) {
-        res.redirect(`locationone/${loc.id}`)
+        res.redirect(`location/location-by-id/${loc.id}`)
         return response.responseHelper(
             res,
             true, {
@@ -63,9 +68,9 @@ exports.PostLocation = async (req, res) => {
     }
 }
 
-exports.LocationById = async (req, res) => {
+exports.LocationById = async(req, res) => {
     const loc = await Location.findById(req.body.id);
-
+    //res.send(loc);
     if (loc) {
         // res.render('locations/show', {
         //     loc
@@ -83,8 +88,7 @@ exports.LocationById = async (req, res) => {
         // });
         return response.responseHelper(
             res,
-            true,
-            [],
+            true, [],
             "No location to show"
         );
     }
