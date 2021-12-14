@@ -41,11 +41,11 @@ app.set('views', path.join(__dirname, 'views'));
 //Api Routes
 
 
+
 //get  home route
 app.get('/', (req, res) => {
     res.render('home');
 })
-
 
 //get list of all the locations
 app.get('/location', async(req, res) => {
@@ -74,7 +74,11 @@ app.get('/locationone/:id', async(req, res) => {
     res.render('locations/show', { loc });
 })
 
-
+//edit
+app.get('/location/:id/edit', async(req, res) => {
+    const loc = await Location.findById(req.params.id);
+    res.render('locations/edit', { loc });
+})
 
 // Server
 const port = process.env.PORT || 3000;
