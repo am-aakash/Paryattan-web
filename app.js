@@ -10,6 +10,7 @@ const Location = require('./models/location.model')
 
 //using body-parser
 const bodyParser = require('body-parser');
+const { resolveAny } = require('dns');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -57,7 +58,14 @@ app.get('/location/new', async(req, res) => {
     res.render('locations/new');
 })
 
+app.post('/location', async(req, res) => {
+    const loc = new Location();
+    loc.title = req.body.title;
+    loc.location = req.body.location;
+    loc.save();
+    res.redirect(`locationone/${loc.id}`)
 
+})
 
 app.get('/locationone/:id', async(req, res) => {
     const loc = await Location.findById(req.params.id);
