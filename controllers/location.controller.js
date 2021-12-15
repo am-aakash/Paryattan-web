@@ -4,6 +4,7 @@ const path = require('path');
 const db = require('../models/index'); //db sequelize
 const Location = require('../models/location.model');
 const response = require("../helpers/response.helper");
+var methodOverride = require('method-override')
 
 //using body-parser
 const bodyParser = require('body-parser');
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(methodOverride('_method'))
 
 //setting view engine
 app.set('view engine', 'ejs');
@@ -68,6 +70,8 @@ exports.PostLocation = async(req, res) => {
     }
 }
 
+
+
 exports.LocationById = async(req, res) => {
     const loc = await Location.findById(req.params.id);
     if (loc) {
@@ -89,3 +93,15 @@ exports.LocationById = async(req, res) => {
         );
     }
 }
+
+exports.EditById = async(req, res, next) => {
+    const loc = await Location.findById(req.params.id);
+    res.render('locations/edit', { loc })
+}
+
+
+// exports.UpdateById = async(req, res) => {
+//     const { id } = req.params;
+//     const loc = await Location.findByIdAndUpdate(id, {...req.body.Campground })
+//     res.redirect(`location/location-by-id/${loc.id}`)
+// }

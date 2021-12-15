@@ -15,6 +15,9 @@ router.post('/post-location', controller.PostLocation);
 router.get('/location-by-id/:id', controller.LocationById);
 
 //edit location
-// router.post('/edit-location', controller.);
+router.get('/edit-location/:id', controller.EditById);
+
+//update location
+// router.put('/location-by-id/:id', controller.UpdateById);
 
 module.exports = router;

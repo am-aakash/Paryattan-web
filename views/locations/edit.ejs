@@ -1,28 +1,28 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit LOcation</title>
+    <title>EDIT LOCATION</title>
 </head>
 
 <body>
-    <h3></h3>
-    <form action="/location" method="POST">
+    <h1>EDIT LOCATION</h1>
+    <form action="/location/location-by-id/<%=loc.id%>?_method=PUT" method="POST">
         <div>
             <label for="title">Title</label>
-            <input type="text" id="title" name="title">
+            <input type="text" id="title" name="title" value="<%=loc.title%>">
         </div>
         <div>
             <label for="title">Location</label>
-            <input type="text" id="title" name="location">
+            <input type="text" id="title" name="location" value="<%=loc.location%>">
         </div>
         <button>Add</button>
 
     </form>
-    <a href="/location">All location</a>
+    <a href="/location/location-by-id/<%= loc.id %>">back</a>
 </body>
 
-</html> -->
+</html>
