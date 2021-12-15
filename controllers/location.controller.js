@@ -94,7 +94,7 @@ exports.LocationById = async(req, res) => {
     }
 }
 
-exports.EditById = async(req, res, next) => {
+exports.EditById = async(req, res) => {
     const loc = await Location.findById(req.params.id);
     res.render('locations/edit', { loc })
 }
@@ -105,3 +105,9 @@ exports.EditById = async(req, res, next) => {
 //     const loc = await Location.findByIdAndUpdate(id, {...req.body.Campground })
 //     res.redirect(`location/location-by-id/${loc.id}`)
 // }
+
+exports.DeleteById = async(req, res) => {
+    const { id } = req.params;
+    const loc = await Location.findByIdAndDelete(id)
+    res.redirect(`location/all-locations}`)
+}

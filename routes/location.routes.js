@@ -20,4 +20,7 @@ router.get('/edit-location/:id', controller.EditById);
 //update location
 // router.put('/location-by-id/:id', controller.UpdateById);
 
+//delete location
+router.delete('/delete-by-id/:id', controller.DeleteById);
+
 module.exports = router;

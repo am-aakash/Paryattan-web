@@ -15,6 +15,9 @@
     <h1>
         <%=loc.location%>
     </h1>
+    <form action="/location/location-by-id/<%=loc.id%>?_method=DETETE" method="POST">
+        <button>Delete</button>
+    </form>
     <footer>
         <a href="/location/edit-location/<%=loc.id%>">Edit</a>
         <a href="/location/all-locations">All location</a>
