@@ -19,11 +19,7 @@ router.post('/post-location', controller.PostLocation);
 router.post('/location-by-id', controller.LocationById);
 
 //edit location
-<<<<<<< HEAD
 router.post('/update-location/:id', controller.UpdateById);
-=======
-router.post('/edit-location', controller.EditById);
->>>>>>> ec17e1d279170f02f2e3369722c946725dd46480
 
 //delete location
 router.post('/delete-by-id', controller.DeleteById);
