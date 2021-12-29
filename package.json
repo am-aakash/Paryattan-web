@@ -27,14 +27,16 @@
     "ejs": "^3.1.6",
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
     "express-mongo-sanitize": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "mongoose": "^6.1.1",
+    "morgan": "^1.10.0",
     "multer": "^1.4.4",
     "nodemon": "^2.0.15",
-    "serverless": "^2.68.0",
-    "serverless-offline": "^8.3.1",
+    "serverless": "^1.54.0",
+    "serverless-offline": "^5.12.1",
     "uuid": "^8.3.2"
   }
 }

@@ -1,6 +1,10 @@
 const express = require("express")
 const router = express.Router()
 const controller = require("../controllers/location.controller");
+//const services = require("../services/render");
+
+
+//                    CONTROLLER
 
 //get list of all the locations
 router.get('/all-locations', controller.GetAllLocations);
@@ -15,10 +19,7 @@ router.post('/post-location', controller.PostLocation);
 router.get('/location-by-id/:id', controller.LocationById);
 
 //edit location
-router.get('/edit-location/:id', controller.EditById);
-
-//update location
-// router.put('/location-by-id/:id', controller.UpdateById);
+router.post('/update-location/:id', controller.UpdateById);
 
 //delete location
 router.delete('/delete-by-id/:id', controller.DeleteById);

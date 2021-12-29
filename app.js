@@ -2,11 +2,14 @@ const express = require('express');
 app = express();
 const path = require('path');
 const cors = require('cors');
+const morgan = require('morgan')
+const ejsMate = require('ejs-mate')
 
 //db sequelize
 const db = require('./models/index')
 const Location = require('./models/location.model')
 
+app.use(morgan('tiny'))
 
 //using body-parser
 const bodyParser = require('body-parser');
@@ -35,12 +38,13 @@ app.use(cors({
 }));
 
 
-//setting view engine
+//setting view 
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
-//Api Routes
+//Api Routes 
 
 //Location routes
 const location_routes = require("./routes/location.routes");

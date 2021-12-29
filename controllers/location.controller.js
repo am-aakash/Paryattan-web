@@ -22,16 +22,16 @@ exports.GetAllLocations = async(req, res) => {
     const loc = await Location.find();
 
     if (loc) {
-        res.render('locations/index', {
-                loc
-            })
-            // return response.responseHelper(
-            //     res,
-            //     true, {
-            //         loc,
-            //     },
-            //     "Successfully fetched all locations"
-            // );
+        // res.render('locations/index', {
+        //         loc
+        //     })
+        return response.responseHelper(
+            res,
+            true, {
+                loc,
+            },
+            "Successfully fetched all locations"
+        );
     } else {
         return response.responseHelper(
             res,
@@ -52,14 +52,14 @@ exports.PostLocation = async(req, res) => {
     await loc.save();
 
     if (loc) {
-        res.redirect(`location/location-by-id/${loc.id}`)
-            // return response.responseHelper(
-            //     res,
-            //     true, {
-            //         loc,
-            //     },
-            //     "Successfully posted new locations"
-            // );
+        //res.redirect(`location/location-by-id/${loc.id}`)
+        return response.responseHelper(
+            res,
+            true, {
+                loc,
+            },
+            "Successfully posted new locations"
+        );
     } else {
         return response.responseHelper(
             res,
@@ -75,16 +75,16 @@ exports.PostLocation = async(req, res) => {
 exports.LocationById = async(req, res) => {
     const loc = await Location.findById(req.params.id);
     if (loc) {
-        return res.render('locations/show', {
-            loc
-        });
-        // return response.responseHelper(
-        //     res,
-        //     true, {
-        //         loc,
-        //     },
-        //     "Successfully fetched location"
-        // );
+        // return res.render('locations/show', {
+        //     loc
+        // });
+        return response.responseHelper(
+            res,
+            true, {
+                loc,
+            },
+            "Successfully fetched location"
+        );
     } else {
         return response.responseHelper(
             res,
@@ -94,20 +94,43 @@ exports.LocationById = async(req, res) => {
     }
 }
 
-exports.EditById = async(req, res) => {
-    const loc = await Location.findById(req.params.id);
-    res.render('locations/edit', { loc })
+
+//UPDATE 
+exports.UpdateById = async(req, res) => {
+    const event_id = req.params.id;
+    const location = req.body.location;
+    const price = req.body.price;
+    const description = req.body.description;
+
+    if (location == null || location === "") {
+        return response.responseHelper(res, false, "location can not be empty", "Field required");
+    }
+
+    try {
+        let event = await Location.findOne({
+            where: {
+                id: event_id
+            }
+        })
+        if (!event) {
+            return response.responseHelper(res, false, "Error", "Event not found");
+        }
+        let updateEvent = await event.update({
+            location: location,
+            price: price,
+            description: description
+        })
+
+        return response.responseHelper(res, true, updateEvent, "Update Success");
+    } catch (error) {
+        console.log(error);
+        return response.responseHelper(res, false, "Error", "Something went wrong");
+    }
 }
 
-
-// exports.UpdateById = async(req, res) => {
-//     const { id } = req.params;
-//     const loc = await Location.findByIdAndUpdate(id, {...req.body.Campground })
-//     res.redirect(`location/location-by-id/${loc.id}`)
-// }
-
+//DELETE
 exports.DeleteById = async(req, res) => {
     const { id } = req.params;
     const loc = await Location.findByIdAndDelete(id)
-    res.redirect(`location/all-locations}`)
+        //res.redirect(`location/all-locations}`)
 }
